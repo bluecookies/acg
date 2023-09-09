@@ -1,0 +1,24 @@
+[package]
+name = "chokotan-bot"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = "0.4.19"
+serenity = "0.11.6"
+songbird = "0.3.2"
+thiserror = "1.0.44"
+tokio = { version = "1.32.0", features = ["sync"] }
+tokio-util = "0.7.8"
+url = "2.4.0"
+
+[dependencies.database]
+path = "../acg-database"
+
+[dependencies.stream-song]
+path = "../acg-stream-song"
+
+[dependencies.song-artist]
+path = "../acg-songartist"

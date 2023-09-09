@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cargo",
+			"command": "run",
+			"args": ["--example", "cli-test"],
+			"problemMatcher": [
+				"$rustc"
+			],
+			"options": {
+				"env": {
+					"DATABASE_URL": "postgres://snowy_hill_5293:LrFirbn1POwzt8W@localhost:5433/postgres?sslmode=disable",
+				},
+			},
+			"label": "rust: cargo run --example cli-test"
+		}
+	]
+}

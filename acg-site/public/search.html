@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search AMQ Songs</title>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="divSearchBox">
+    <label>Search:<input type="search"></label>
+    <label class="labelCheckbox"><input id="chkExactMatch" type="checkbox">Exact match</label>
+    <div id="loader" style="display: none;"><div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  </div>
+  <table id="songs" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Song Name</th>
+        <th>Artist</th>
+        <th>Anime</th>
+        <th>Difficulty</th>
+      </tr>
+    </thead>
+  </table>
+  <script src="/static/search.js"></script>
+</body>
+</html>

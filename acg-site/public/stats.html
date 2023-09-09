@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Song Statistics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0px;
+    }
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      overflow: hidden;
+    }
+    .sidebar {
+      flex: 0 1 auto;
+      background-color: gainsboro;
+      padding: 5px;
+    }
+    .btn {
+      margin: 1px;
+    }
+    .wrapper {
+      flex: auto;
+      background-color: whitesmoke;
+      padding: 5px;
+      overflow: hidden;
+    }
+    span {
+      font-family: Arial;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div><button class="btn" id="btnVintage">Get stats by vintage</button></div>
+      <div><button class="btn" id="btnDifficulty">Get stats by difficulty</button></div>
+      <div><button class="btn" id="btnDifficulty2">Get stats by difficulty 2</button></div>
+      <div>
+        <span>#Difficulty bins: </span>
+        <input type="number" id="inputNumBins" name="numBins" value="100" min="1" max="1000"></input>
+      </div>
+    </div>
+    <div class="wrapper">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+  <script src="/static/stats.js"></script>
+</body>
+</html>

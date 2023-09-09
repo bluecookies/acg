@@ -1,0 +1,12 @@
+# ignore everything from build context (parent)
+*
+
+# allow directories
+!/acg-amqtypes
+!/acg-database
+!/acg-site
+
+# disallow
+*/target
+acg-site/test
+*/*.bat

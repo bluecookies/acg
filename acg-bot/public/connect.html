@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Connect</title>
+</head>
+<body>
+  <div><form method="POST" action="" name="redirect_form" id="form">
+    <button onclick="submitForm('connect')">Connect</button>
+    <button onclick="submitForm('connect_no_cookie')">Connect (no cookie)</button>
+    <input type="hidden" name="action" id="inputAction"></input>
+  </form></div>
+  <script>
+    function submitForm(value) {
+      document.getElementById("inputAction").value = value;
+      document.getElementById("form").submit();
+    }
+  </script>
+</body>
+</html>

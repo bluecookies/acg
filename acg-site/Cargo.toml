@@ -1,0 +1,2 @@
+[workspace]
+members = ["acg-site-app"]

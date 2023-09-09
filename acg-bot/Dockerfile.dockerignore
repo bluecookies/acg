@@ -1,0 +1,14 @@
+# ignore everything from build context (parent)
+*
+
+# allow directories
+!/acg-amqtypes
+!/acg-database
+!/acg-songartist
+!/acg-stream-song
+!/acg-chokotan-bot
+!/acg-bot
+
+# disallow
+*/target
+*/*.bat
