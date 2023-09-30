@@ -1,0 +1,29 @@
+[package]
+name = "chokotan-bot"
+version = "0.2.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glob = "0.3.1"
+log = "0.4.19"
+songbird = "0.3.2"
+thiserror = "1.0.44"
+tokio = { version = "1.32.0", features = ["sync"] }
+tokio-util = "0.7.8"
+url = "2.4.0"
+# feature: saquiz
+serde = { version = "1.0.188", features = ["derive", "rc"] }
+serde_yaml = "0.9.25"
+poise = "0.5.6"
+
+
+[dependencies.database]
+path = "../database"
+
+[dependencies.stream-song]
+path = "../stream-song"
+
+[dependencies.song-artist]
+path = "../song-artist"

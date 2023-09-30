@@ -2,11 +2,13 @@
 *
 
 # allow directories
-!/acg-amqtypes
-!/acg-database
+!/amq-types
+!/database
 !/acg-site
 
 # disallow
 */target
-acg-site/test
 */*.bat
+*/.idea
+*/.vscode
+acg-site/test

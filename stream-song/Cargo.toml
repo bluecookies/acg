@@ -1,0 +1,32 @@
+[package]
+name = "stream-song"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+itertools = "0.11.0"
+log = "0.4.20"
+rand = "0.8.5"
+rubato = "0.14.1"
+thiserror = "1.0.48"
+tokio-util = "0.7.8"
+url = "2.4.1"
+
+[dependencies.tokio]
+version = "1.32.0"
+features = ["sync"]
+
+[dependencies.stream-download]
+version = "0.3.0"
+features = ["reqwest-native-tls"]
+path = "./stream-download-rs"
+
+[dependencies.symphonia]
+version = "0.5.3"
+default-features = false
+features = [
+    "mp3",
+    "isomp4", "aac", "alac",   # a lot of m4a files
+]

@@ -1,0 +1,17 @@
+[package]
+name = "database"
+version = "0.2.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+deadpool-postgres = "0.10.5"
+log = "0.4.19"
+tokio-postgres = { version = "0.7.8", features = ["with-chrono-0_4"] }
+serde = { version = "1.0.163", features = ["derive"] }
+thiserror = "1.0.40"
+chrono = "0.4.26"
+chrono-tz = "0.8.2"
+amq-types = { path = "../amq-types" }
+serde_tuple = "0.5.0"
