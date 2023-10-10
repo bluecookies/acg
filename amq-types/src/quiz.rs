@@ -93,7 +93,7 @@ pub struct ResultsSongInfo {
     #[serde(rename = "type")]
     pub ty: SongType,
     pub type_number: Option<i64>,
-    pub url_map: serde_json::Value,
+    pub video_target_map: serde_json::Value,
 }
 
 #[derive(serde::Deserialize)]

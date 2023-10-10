@@ -208,7 +208,7 @@ impl Database {
         } else {
             data.song_info.ty.to_string()
         };
-        let links = amq_types::get_links(data.song_info.url_map.take());
+        let links = amq_types::get_links(data.song_info.video_target_map.take());
         let params: &[&(dyn ToSql + Sync)] = &[
             // songname, artist,
             &data.song_info.song_name,
