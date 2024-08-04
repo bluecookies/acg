@@ -17,6 +17,8 @@ pub fn get_links(mut map: JsonValue) -> CatboxLinks {
         if let Some(url) = v.get("0").and_then(JsonValue::as_str) {
             if let Some((_, file)) = url.rsplit_once('/') {
                 mp3 = Some(file.to_string());
+            } else {
+                mp3 = Some(url.to_string());
             }
         }
         if let Some(url) = v
@@ -26,6 +28,8 @@ pub fn get_links(mut map: JsonValue) -> CatboxLinks {
         {
             if let Some((_, file)) = url.rsplit_once('/') {
                 video = Some(file.to_string());
+            } else {
+                video = Some(url.to_string());
             }
         }
     }

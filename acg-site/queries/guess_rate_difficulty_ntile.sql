@@ -17,7 +17,7 @@ FROM
       ) AS bucket
     FROM
       (
-        SELECT *, split_part(type, ' ', 1) AS kind
+        SELECT *, type AS kind
         FROM amq_songs
         UNION
         SELECT *, 'All' AS kind

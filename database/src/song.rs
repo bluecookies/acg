@@ -110,6 +110,16 @@ pub struct SearchResult {
     difficulty: Option<f32>,
 }
 
+#[derive(serde::Serialize)]
+pub struct LastSongPlay {
+    // technically this difficulty was when it was last updated by any player
+    difficulty: Option<f32>,
+    times_played: i32,
+    correct_guesses: bit_vec::BitVec,
+    last_played: Option<chrono::NaiveDateTime>,
+}
+
+
 impl Database {
     // Updates the anime data (including name and tags),
     //  then the song data and finally the song play data
@@ -117,7 +127,7 @@ impl Database {
     // This function can be called without any of the the player song guess data
     //  so if it is being called from an external source, it should be checked
     //  to exist before calling this
-    pub async fn update_song_data(&self, mut data: SongData) -> Result<(), Error> {
+    pub async fn update_song_data(&self, mut data: SongData) -> Result<Option<LastSongPlay>, Error> {
         // my timezone
         let date = chrono::offset::Utc::now().with_timezone(&chrono_tz::Australia::Sydney);
         let date = date.naive_local(); // remove timezone info to give to postgres
@@ -202,12 +212,6 @@ impl Database {
                 .map_err(|e| QueryError("update anime names", e))?;
         }
         // Insert/Update song data
-        // TODO: change db schema to split type and type number
-        let song_type = if let Some(num) = data.song_info.type_number {
-            format!("{} {}", &data.song_info.ty, num)
-        } else {
-            data.song_info.ty.to_string()
-        };
         let links = amq_types::get_links(data.song_info.video_target_map.take());
         let params: &[&(dyn ToSql + Sync)] = &[
             // songname, artist,
@@ -216,7 +220,8 @@ impl Database {
             // anime_id,
             &(data.song_info.ann_id as i32),
             // type,
-            &song_type,
+            &data.song_info.ty.to_string(),
+            &(data.song_info.type_number.unwrap_or(0) as i32),
             // mp3, video,
             &links.mp3,
             &links.video,
@@ -228,13 +233,15 @@ impl Database {
             &date,
         ];
 
+        // TODO: handle case where the update query returns 2 rows
+        // in this case they are duplicates and should be merged
         let statement = prepare_statement!(transaction, "pg_update_song.sql", "update song data")?;
         let res = transaction
             .query_opt(&statement, params)
             .await
             .map_err(|e| QueryError("update song data", e))?;
-        let song_id: i32 = if let Some(row) = res {
-            row.get(0)
+        let (song_id, old_diff): (i32, Option<f32>) = if let Some(row) = res {
+            (row.get(0), row.get(1))
         } else {
             let statement =
                 prepare_statement!(transaction, "pg_insert_song.sql", "insert song data")?;
@@ -243,11 +250,11 @@ impl Database {
                 .query_one(&statement, params)
                 .await
                 .map_err(|e| QueryError("insert song data", e))?;
-            row.get(0)
+            (row.get(0), None)
         };
         // Insert/Update song plays
         // only do this if player name is set
-        if let Some(ref player_name) = data.player_name {
+        let last_played = if let Some(ref player_name) = data.player_name {
             // ~~get the player id - could cache this?~~
             // player id get in query
             let params: &[&(dyn ToSql + Sync)] = &[
@@ -286,9 +293,15 @@ impl Database {
                     .await
                     .map_err(|e| QueryError("update song guess rate", e))?;
             }
-        }
+            Some(LastSongPlay {
+                difficulty: old_diff,
+                times_played: row.get(1),
+                correct_guesses: row.get(2),
+                last_played: row.get(3),
+            })
+        } else { None };
         transaction.commit().await?;
-        Ok(())
+        Ok(last_played)
     }
 
     // Returns the song information given the AMQ Catbox links used

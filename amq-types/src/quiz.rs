@@ -117,7 +117,7 @@ impl fmt::Display for SongType {
         match self {
             Self::Opening => write!(f, "Opening"),
             Self::Ending => write!(f, "Ending"),
-            Self::Insert => write!(f, "Insert Song"),
+            Self::Insert => write!(f, "Insert"),
             Self::Unknown => write!(f, "Unknown"),
         }
     }

@@ -20,4 +20,10 @@ UPDATE SET
     times_played = song_plays.times_played + 1,
     correct_guesses = SUBSTRING(excluded.correct_guesses || song_plays.correct_guesses, 1, 16),
     last_played = $4
-RETURNING player
+RETURNING 
+    player, 
+    times_played, 
+    correct_guesses, 
+    (SELECT last_played FROM song_plays p 
+    WHERE p.amq_song_id = song_plays.amq_song_id
+    AND p.player = song_plays.player)

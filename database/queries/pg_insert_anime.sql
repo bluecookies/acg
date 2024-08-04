@@ -10,9 +10,9 @@ ON CONFLICT (ann_id) DO
 UPDATE SET
     romaji = $2,
     english = $3,
-    mal_id = $4,
-    anilist_id = $5,
-    kitsu_id = $6,
+    mal_id = COALESCE($4, mal_id),
+    anilist_id = COALESCE($5, anilist_id),
+    kitsu_id = COALESCE($6, anilist_id),
     type = $7,
     score = $8,
     vintage = $9,

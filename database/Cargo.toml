@@ -8,10 +8,11 @@ edition = "2021"
 [dependencies]
 deadpool-postgres = "0.10.5"
 log = "0.4.19"
-tokio-postgres = { version = "0.7.8", features = ["with-chrono-0_4"] }
+tokio-postgres = { version = "0.7.8", features = ["with-chrono-0_4", "with-bit-vec-0_6"] }
 serde = { version = "1.0.163", features = ["derive"] }
 thiserror = "1.0.40"
-chrono = "0.4.26"
+chrono = { version = "0.4.26", features = ["serde"] }
 chrono-tz = "0.8.2"
 amq-types = { path = "../amq-types" }
 serde_tuple = "0.5.0"
+bit-vec = { version = "0.6", features = ["serde"] }
